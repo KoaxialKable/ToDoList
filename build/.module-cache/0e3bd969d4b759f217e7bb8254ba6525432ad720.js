@@ -1,6 +1,6 @@
 var TodoRow = React.createClass({displayName: "TodoRow",
   getInitialState: function() {
-    return {id: this.props.id}
+    return {id: this.props.id, editMode: this.props.focused}
   },
 
 

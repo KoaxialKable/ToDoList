@@ -1,6 +1,6 @@
 var TodoRow = React.createClass({displayName: "TodoRow",
   getInitialState: function() {
-    return {id: this.props.id}
+    return {id: this.props.id, editMode: this.props.focused}
   },
 
 
@@ -32,9 +32,10 @@ var TodoRow = React.createClass({displayName: "TodoRow",
       return (
         React.createElement("li", {key: this.props.id, className: "TodoRow"}, 
           React.createElement("span", null, this.props.text), 
-          React.createElement("span", {class: "glyphicon glyphicon-pencil"}), 
-          React.createElement("button", {type: "button", ref: "btnEdit", onClick: this.editClick, class: "btn btn-default"}, "Edit"), 
-          React.createElement("button", {type: "button", ref: "btnDelete", onClick: this.deleteClick, class: "btn btn-default"}, "Delete")
+          React.createElement("div", {class: "btn-group", role: "group"}, 
+            React.createElement("button", {type: "button", ref: "btnEdit", onClick: this.editClick, class: "btn btn-default"}, "Edit"), 
+            React.createElement("button", {type: "button", ref: "btnDelete", onClick: this.deleteClick, class: "btn btn-default"}, "Delete")
+          )
         )
       );
     }

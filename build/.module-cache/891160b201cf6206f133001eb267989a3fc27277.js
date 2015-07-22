@@ -100,6 +100,7 @@ var TodoList = React.createClass({displayName: "TodoList",
     return (
       React.createElement("div", {className: "TodoList"}, 
         React.createElement("h3", null, "To do:"), 
+        React.createElement("span", {class: "glyphicon glyphicon-pencil"}), 
         React.createElement("ul", null, 
           listNodes, 
           React.createElement("li", {key: "add"}, React.createElement("button", {type: "button", onClick: this.addNewItem}, "Add"))

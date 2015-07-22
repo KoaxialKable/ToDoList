@@ -1,6 +1,6 @@
 var TodoRow = React.createClass({
   getInitialState: function() {
-    return {id: this.props.id, editMode: this.props.focused}
+    return {id: this.props.id}
   },
 
 
@@ -22,23 +22,24 @@ var TodoRow = React.createClass({
       return (
         <li key={this.props.id} className="TodoRowEdit">
           <input type="text" ref="txtUpdate" defaultValue={this.props.text}/>
-          <button type="button" ref="btnUpdate" onClick={this.updateClick}>Update</button>
-          <button type="button" ref="btnCancel" onClick={this.editClick}>Cancel</button>
+          <div class="btn-group" role="group">
+            <button type="button" ref="btnUpdate" onClick={this.updateClick} class="btn btn-default">Update</button>
+            <button type="button" ref="btnCancel" onClick={this.editClick} class="btn btn-default">Cancel</button>
+          </div>
         </li>
       );
     } else {
       return (
         <li key={this.props.id} className="TodoRow">
           <span>{this.props.text}</span>
-          <button type="button" ref="btnEdit" onClick={this.editClick}>Edit</button>
-          <button type="button" ref="btnDelete" onClick={this.deleteClick}>Delete</button>
+          <span class="glyphicon glyphicon-pencil"></span>
+          <button type="button" ref="btnEdit" onClick={this.editClick} class="btn btn-default">Edit</button>
+          <button type="button" ref="btnDelete" onClick={this.deleteClick} class="btn btn-default">Delete</button>
         </li>
       );
     }
   }
 });
-
-
 
 
 var TodoList = React.createClass({
