@@ -1,6 +1,6 @@
 var TodoRow = React.createClass({
   getInitialState: function() {
-    return {id: this.props.id}
+    return {id: this.props.id, style: {}}
   },
 
 
@@ -18,29 +18,28 @@ var TodoRow = React.createClass({
 
   render: function() {
     var editMode = this.props.focused;
+    var style = this.state.style;
     if (editMode) {
+      // edit mode
       return (
-        <li key={this.props.id} className="TodoRowEdit">
-          <input type="text" ref="txtUpdate" defaultValue={this.props.text}/>
-          <div class="btn-group" role="group">
-            <button type="button" ref="btnUpdate" onClick={this.updateClick} class="btn btn-default">Update</button>
-            <button type="button" ref="btnCancel" onClick={this.editClick} class="btn btn-default">Cancel</button>
-          </div>
+        <li key={this.props.id} className="list-group-item">
+          <input type="text" ref="txtUpdate" className="" defaultValue={this.props.text}/>
+          <span ref="btnCancel" onClick={this.editClick} className="glyphicon glyphicon-ban-circle hover right" style={{opacity: 0.55, paddingLeft: '7px'}} title="Cancel Edit"></span>
+          <span ref="btnUpdate" onClick={this.updateClick} className="glyphicon glyphicon-ok hover right" style={{position: 'float', align: 'right', opacity: 0.55, paddingLeft: '7px'}} title="Update"></span>
         </li>
       );
     } else {
+      // default mode
       return (
-        <li key={this.props.id} className="TodoRow">
+        <li key={this.props.id} className="list-group-item">
           <span>{this.props.text}</span>
-          <span class="glyphicon glyphicon-pencil"></span>
-          <button type="button" ref="btnEdit" onClick={this.editClick} class="btn btn-default">Edit</button>
-          <button type="button" ref="btnDelete" onClick={this.deleteClick} class="btn btn-default">Delete</button>
+          <span ref="btnDelete" onClick={this.deleteClick} className="glyphicon glyphicon-remove hover right" style={{opacity: 0.55, paddingLeft: '7px'}} title="Delete"></span>
+          <span ref="btnEdit" onClick={this.editClick} className="glyphicon glyphicon-pencil hover right" style={{opacity: 0.55, paddingLeft: '7px'}} title="Edit"></span>
         </li>
       );
     }
   }
 });
-
 
 var TodoList = React.createClass({
   getInitialState: function() {
@@ -50,7 +49,7 @@ var TodoList = React.createClass({
 
   editClick: function(childComponent) {
     var childID = childComponent.state.id;
-    if (this.state.focudID == childID) {
+    if (this.state.focusID == childID) {
       // already in edit mode: cancel
       this.setState({focusID: null});
     } else {
@@ -92,17 +91,17 @@ var TodoList = React.createClass({
           focused={i == focusID}
           id={i}
           editClick={this.editClick}
-          updateClick={this.updateClick}
+          updateClick={this.updateClick.bind(this, i)}
           deleteClick={this.deleteClick}
         />
       );
     }, this);
     return (
       <div className="TodoList">
-        <h3>To do:</h3>
-        <ul>
+        <h2 className="title">To do:</h2>
+        <ul className="list-group large" style={{marginLeft: 'auto', marginRight: 'auto', marginBottom: '50px', width: '40%'}}>
           {listNodes}
-          <li key="add"><button type="button" onClick={this.addNewItem}>Add</button></li>
+          <li key="add" className="list-group-item"><span className="glyphicon glyphicon-plus hover" onClick={this.addNewItem} style={{opacity: 0.7}} title="Add new item"></span></li>
         </ul>
 
       </div>
@@ -110,10 +109,12 @@ var TodoList = React.createClass({
   }
 });
 
+
 var initialList = [
-  {text: "Walk dog"},
-  {text: "Do laundry"},
-  {text: "Do dishes"}
+  {text: "Finish TodoList app"},
+  {text: "Rock interview"},
+  {text: "Land sweet job"},
+  {text: "Be awesome"}
 ];
 
 

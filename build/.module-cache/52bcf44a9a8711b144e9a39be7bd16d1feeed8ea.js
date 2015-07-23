@@ -16,23 +16,28 @@ var TodoRow = React.createClass({displayName: "TodoRow",
     this.props.deleteClick(this);
   },
 
+  handleClick: function() {
+    if (this.state.style == {}) {
+      this.setState({style: {textDecoration: 'line-through'}});
+    }
+  },
+
   render: function() {
     var editMode = this.props.focused;
     var style = this.state.style;
     if (editMode) {
-      // edit mode
       return (
         React.createElement("li", {key: this.props.id, className: "list-group-item"}, 
           React.createElement("input", {type: "text", ref: "txtUpdate", className: "", defaultValue: this.props.text}), 
-          React.createElement("span", {ref: "btnCancel", onClick: this.editClick, className: "glyphicon glyphicon-ban-circle hover right", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Cancel Edit"}), 
-          React.createElement("span", {ref: "btnUpdate", onClick: this.updateClick, className: "glyphicon glyphicon-ok hover right", style: {position: 'float', align: 'right', opacity: 0.55, paddingLeft: '7px'}, title: "Update"})
+            
+            React.createElement("span", {ref: "btnCancel", onClick: this.editClick, className: "glyphicon glyphicon-ban-circle hover right", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Cancel Edit"}), 
+            React.createElement("span", {ref: "btnUpdate", onClick: this.updateClick, className: "glyphicon glyphicon-ok hover right", style: {position: 'float', align: 'right', opacity: 0.55, paddingLeft: '7px'}, title: "Update"})
         )
       );
     } else {
-      // default mode
       return (
         React.createElement("li", {key: this.props.id, className: "list-group-item"}, 
-          React.createElement("span", null, this.props.text), 
+          React.createElement("span", {onClick: this.handleClick, style: style}, this.props.text), 
           React.createElement("span", {ref: "btnDelete", onClick: this.deleteClick, className: "glyphicon glyphicon-remove hover right", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Delete"}), 
           React.createElement("span", {ref: "btnEdit", onClick: this.editClick, className: "glyphicon glyphicon-pencil hover right", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Edit"})
         )

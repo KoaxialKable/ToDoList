@@ -5,7 +5,7 @@ var TodoRow = React.createClass({displayName: "TodoRow",
 
 
   editClick: function() {
-    this.props.editClick(this);
+    this.props.editClick();
   },
 
   updateClick: function() {

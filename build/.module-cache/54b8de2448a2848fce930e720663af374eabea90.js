@@ -1,6 +1,6 @@
 var TodoRow = React.createClass({displayName: "TodoRow",
   getInitialState: function() {
-    return {id: this.props.id, style: {}}
+    return {id: this.props.id}
   },
 
 
@@ -18,18 +18,16 @@ var TodoRow = React.createClass({displayName: "TodoRow",
 
   render: function() {
     var editMode = this.props.focused;
-    var style = this.state.style;
     if (editMode) {
-      // edit mode
       return (
         React.createElement("li", {key: this.props.id, className: "list-group-item"}, 
           React.createElement("input", {type: "text", ref: "txtUpdate", className: "", defaultValue: this.props.text}), 
-          React.createElement("span", {ref: "btnCancel", onClick: this.editClick, className: "glyphicon glyphicon-ban-circle hover right", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Cancel Edit"}), 
-          React.createElement("span", {ref: "btnUpdate", onClick: this.updateClick, className: "glyphicon glyphicon-ok hover right", style: {position: 'float', align: 'right', opacity: 0.55, paddingLeft: '7px'}, title: "Update"})
+            
+            React.createElement("span", {ref: "btnCancel", onClick: this.editClick, className: "glyphicon glyphicon-ban-circle hover right", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Cancel Edit"}), 
+            React.createElement("span", {ref: "btnUpdate", onClick: this.updateClick, className: "glyphicon glyphicon-ok hover right", style: {position: 'float', align: 'right', opacity: 0.55, paddingLeft: '7px'}, title: "Update"})
         )
       );
     } else {
-      // default mode
       return (
         React.createElement("li", {key: this.props.id, className: "list-group-item"}, 
           React.createElement("span", null, this.props.text), 
@@ -111,10 +109,10 @@ var TodoList = React.createClass({displayName: "TodoList",
 
 
 var initialList = [
-  {text: "Finish TodoList app"},
-  {text: "Rock interview"},
-  {text: "Land sweet job"},
-  {text: "Be awesome"}
+  {text: "Buy crack"},
+  {text: "Smoke crack"},
+  {text: "Get on welfare"},
+  {text: "Follow dreams"}
 ];
 
 

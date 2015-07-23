@@ -4,17 +4,7 @@ var TodoRow = React.createClass({displayName: "TodoRow",
   },
 
 
-  editClick: function() {
-    this.props.editClick(this);
-  },
-
-  updateClick: function() {
-    this.props.updateClick(this);
-  },
-
-  deleteClick: function() {
-    this.props.deleteClick(this);
-  },
+  
 
   render: function() {
     var editMode = this.props.focused;

@@ -1,40 +1,37 @@
 var TodoRow = React.createClass({displayName: "TodoRow",
   getInitialState: function() {
-    return {id: this.props.id, style: {}}
+    return {id: this.props.id}
   },
 
 
   editClick: function() {
-    this.props.editClick(this);
+    this.props.editClick(i);
   },
 
-  updateClick: function() {
-    this.props.updateClick(this);
+  updateClick: function(e) {
+    this.props.updateClick(e.target.value, i);
   },
 
   deleteClick: function() {
-    this.props.deleteClick(this);
+    this.props.deleteClick(i);
   },
 
   render: function() {
     var editMode = this.props.focused;
-    var style = this.state.style;
     if (editMode) {
-      // edit mode
       return (
         React.createElement("li", {key: this.props.id, className: "list-group-item"}, 
-          React.createElement("input", {type: "text", ref: "txtUpdate", className: "", defaultValue: this.props.text}), 
-          React.createElement("span", {ref: "btnCancel", onClick: this.editClick, className: "glyphicon glyphicon-ban-circle hover right", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Cancel Edit"}), 
-          React.createElement("span", {ref: "btnUpdate", onClick: this.updateClick, className: "glyphicon glyphicon-ok hover right", style: {position: 'float', align: 'right', opacity: 0.55, paddingLeft: '7px'}, title: "Update"})
+          React.createElement("input", {type: "text", ref: "txtUpdate", defaultValue: this.props.text}), 
+            React.createElement("span", {ref: "btnUpdate", onClick: this.updateClick, className: "glyphicon glyphicon-ok hover", style: {position: 'float', align: 'right', opacity: 0.55, paddingLeft: '7px'}, title: "Update"}), 
+            React.createElement("span", {ref: "btnCancel", onClick: this.editClick, className: "glyphicon glyphicon-ban-circle hover", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Cancel Edit"})
         )
       );
     } else {
-      // default mode
       return (
         React.createElement("li", {key: this.props.id, className: "list-group-item"}, 
           React.createElement("span", null, this.props.text), 
-          React.createElement("span", {ref: "btnDelete", onClick: this.deleteClick, className: "glyphicon glyphicon-remove hover right", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Delete"}), 
-          React.createElement("span", {ref: "btnEdit", onClick: this.editClick, className: "glyphicon glyphicon-pencil hover right", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Edit"})
+          React.createElement("span", {ref: "btnEdit", onClick: this.editClick, className: "glyphicon glyphicon-pencil hover", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Edit"}), 
+          React.createElement("span", {ref: "btnDelete", onClick: this.deleteClick, className: "glyphicon glyphicon-remove hover", style: {opacity: 0.55, paddingLeft: '7px'}, title: "Delete"})
         )
       );
     }
@@ -47,8 +44,8 @@ var TodoList = React.createClass({displayName: "TodoList",
   },
 
 
-  editClick: function(childComponent) {
-    var childID = childComponent.state.id;
+  editClick: function(childID) {
+    // var childID = childComponent.state.id;
     if (this.state.focusID == childID) {
       // already in edit mode: cancel
       this.setState({focusID: null});
@@ -59,16 +56,16 @@ var TodoList = React.createClass({displayName: "TodoList",
     
   },
 
-  updateClick: function(childComponent) {
-    var newText = childComponent.refs.txtUpdate.getDOMNode().value;
-    var idToUpdate = childComponent.state.id;
+  updateClick: function(newText, idToUpdate) {
+    // var newText = childComponent.refs.txtUpdate.getDOMNode().value;
+    // var idToUpdate = childComponent.state.id;
     var list = this.state.list;
     list[idToUpdate].text = newText;
     this.setState({focusID: null, list: list})
   },
 
-  deleteClick: function(childComponent) {
-    var idToDelete = childComponent.state.id;
+  deleteClick: function(idToDelete) {
+    // var idToDelete = childComponent.state.id;
     var list = this.state.list;
     list.splice(idToDelete, 1);
     this.setState({list: list})
@@ -91,7 +88,7 @@ var TodoList = React.createClass({displayName: "TodoList",
           focused: i == focusID, 
           id: i, 
           editClick: this.editClick, 
-          updateClick: this.updateClick.bind(this, i), 
+          updateClick: this.updateClick, 
           deleteClick: this.deleteClick}
         )
       );
@@ -109,12 +106,10 @@ var TodoList = React.createClass({displayName: "TodoList",
   }
 });
 
-
 var initialList = [
-  {text: "Finish TodoList app"},
-  {text: "Rock interview"},
-  {text: "Land sweet job"},
-  {text: "Be awesome"}
+  {text: "Walk dog"},
+  {text: "Do laundry"},
+  {text: "Do dishes"}
 ];
 
 
