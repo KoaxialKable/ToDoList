@@ -91,7 +91,7 @@ var TodoList = React.createClass({displayName: "TodoList",
           focused: i == focusID, 
           id: i, 
           editClick: this.editClick, 
-          updateClick: this.updateClick.bind(this, i), 
+          updateClick: this.updateClick, 
           deleteClick: this.deleteClick}
         )
       );
